@@ -1,0 +1,19 @@
+<div class="bg-slate-100 float-left w-full h-full relative">
+  <p class="font-medium text-lg mb-5 mt-2 text-left w-10/12 mx-auto relative">Lists <span
+      class="absolute end-0 hover:cursor-pointer font-light" (click)="addList()">+</span></p>
+  <ul class="font-light">
+    <li *ngFor="let list of lists" (click)="selectList(list)"
+      class="relative">
+      <div *ngIf="list != activeList" class="hover:bg-slate-200 hover:cursor-pointer text-md w-10/12 mx-auto my-2 rounded-lg p-1.5 relative">
+        {{list.name}}
+        <button class="absolute end-2 hover:cursor-pointer" (click)="deleteList(list)"> <span
+            class="material-icons">delete_outline</span></button>
+      </div>
+      <div *ngIf="list ==activeList" class="bg-slate-300  hover:cursor-pointer text-md w-10/12 mx-auto my-2 rounded-lg p-1.5 relative">
+        {{list.name}}
+        <button class="absolute end-2 hover:cursor-pointer" (click)="deleteList(list)"> <span
+            class="material-icons">delete_outline</span></button>
+      </div>
+    </li>
+  </ul>
+</div>

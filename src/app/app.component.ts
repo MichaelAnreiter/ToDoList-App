@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { List } from './models/list';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ToDoList-App';
+  currentList?: List;
+
+
+  public selectNewList(list: List): void {
+    this.currentList = list;
+  }
 }

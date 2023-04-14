@@ -1,0 +1,49 @@
+<div class="h-full mx-auto w-8/12">
+  <div class="relative w-full mx-auto top-7">
+    <ul *ngIf="list != null" class="text-left">
+      <li *ngFor="let task of tasks" class="hover:bg-slate-50 rounded-3xl hover:cursor-pointer relative m-2 "
+        (click)="toggleDetails(task)">
+        <div class="flex p-3">
+          <div class="flex-none w-6" *ngIf="!task.isCompleted">
+            <span
+              class="material-icons hover:cursor-pointer relative place-self-center top-0.5 hover:bg-gray-300 rounded-full z-60" (click)="completeTask(task);$event.stopPropagation()">radio_button_unchecked</span>
+          </div>
+          <div class="flex-none w-6" *ngIf="task.isCompleted">
+            <span
+              class="material-icons hover:cursor-pointer relative place-self-center top-0.5 hover:bg-gray-300 rounded-full z-60" (click)="completeTask(task);$event.stopPropagation()">check_circle</span>
+          </div>
+          <div class="text-lg font-medium grow ml-2">
+            <p *ngIf="!task.isCompleted">{{ task.name }}</p>
+            <p class="line-through decoration-2 " *ngIf="task.isCompleted">{{ task.name }}</p>
+            <p class="text-sm font-light">{{task.description }}</p>
+          </div>
+          <div class="flex-none end-2 w-20 h-full self-end text-md">
+            <p>{{task.dueDate}}</p>
+            <p *ngIf="task.dueDate == undefined">no date</p>
+          </div>
+        </div>
+        <hr class="w-11/12 mx-auto text-slate-200" />
+      </li>
+      <li m-2>
+        <div class="flex p-3">
+          <input placeholder="add Task" class=" !outline-none border border-t-0 border-b-1 border-l-0 border-r-0 border-slate-200 w-11/12" [(ngModel)]="newTaskName">
+          <span class="material-icons hover:cursor-pointer w-1/12 justify-self-end flex-none text-center" (click)="addTask(newTaskName)">
+            send
+            </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="list == null" class="text-center relative top-20 p-5 shadow-lg rounded-lg border">
+    Select a list to view your tasks
+  </div>
+  <div *ngIf="showDetails" class="h-full w-full absolute bg-gray-100 top-0 left-0 opacity-70"
+    (click)="toggleDetails(selectedTask)" >
+  </div>
+  <div *ngIf="showDetails"
+    class="absolute w-8/12 h-4/6 z-60 mx-auto bg-white drop-shadow-2xl top-20 opacity-100 rounded-3xl flex">
+    <div class="relative w-11/12 mx-auto h-5/6 place-self-center">
+      <app-task-detail [task]="selectedTask" (closeDetails)="toggleDetails(selectedTask)" (updateTask)="updateTask($event)" (deleteTask)="deleteTask($event)"/>
+    </div>
+  </div>
+</div>
